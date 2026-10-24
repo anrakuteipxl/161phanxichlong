@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anrakutei Kitchen Portal | PXL</title>
+    <link rel="icon" type="image/x-icon" href="./assets/logo.ico">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            DEFAULT: '#d4af37',
+                            light: '#f3e5ab',
+                            dark: '#aa8c2c'
+                        },
+                        darkbg: '#0d0d0d',
+                        cardbg: '#161616',
+                        cardhover: '#1f1f1f'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #e5e7eb;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0d0d0d;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+
+        .gold-border {
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .gold-border:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .luxury-gradient {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa8c2c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Drawer transition */
+        .drawer {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .drawer.open {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-gold selection:text-black">
+
+    <!-- TOP HEADER -->
+    <header
+        class="sticky top-0 z-40 bg-[#0d0d0d]/95 backdrop-blur-md border-b gold-border px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div
+                class="w-10 h-10 rounded border border-gold flex items-center justify-center bg-cardbg shadow-lg shadow-gold/10">
+                <img src="./assets/logo.png" alt="Anrakutei Kitchen" class="w-full h-full object-contain p-1" />
+            </div>
+            <div>
+                <h1 class="font-bold text-sm md:text-base tracking-wider gold-gradient-text uppercase">ANRAKUTEI KITCHEN
+                </h1>
+                <p class="text-[10px] md:text-xs text-neutral-400 tracking-widest">SINCE 1963 • PORTAL BẾP</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <!-- Hamburger Toggle Button -->
+            <button id="menuBtn" aria-label="Mở menu điều hướng"
+                class="w-10 h-10 rounded bg-cardbg border gold-border flex items-center justify-center text-gold hover:bg-gold hover:text-black transition-colors">
+                <i class="fa-solid fa-bars text-lg"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- SLIDE-OUT DRAWER MENU (Inspired by reference screenshot) -->
+    <div id="drawerOverlay" class="fixed inset-0 bg-black/70 z-50 hidden backdrop-blur-sm transition-opacity"></div>
+    <div id="navDrawer"
+        class="drawer fixed top-0 right-0 w-full sm:w-80 h-full bg-[#0d0d0d] border-l gold-border z-50 flex flex-col shadow-2xl overflow-y-auto">
+        <!-- Drawer Header -->
+        <div class="p-5 border-b gold-border flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded border border-gold flex items-center justify-center bg-cardbg">
+                    <i class="fa-solid fa-fire-burner text-gold text-sm"></i>
+                </div>
+                <div>
+                    <h2 class="font-bold text-sm gold-gradient-text tracking-wide">ANRAKUTEI KITCHEN</h2>
+                    <p class="text-[10px] text-neutral-400">Since 1963</p>
+                </div>
+            </div>
+            <button id="closeDrawerBtn" aria-label="Đóng menu điều hướng"
+                class="w-8 h-8 rounded bg-cardbg border gold-border flex items-center justify-center text-neutral-400 hover:text-gold transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Language Flags (Reference style) -->
+        <div class="px-5 py-3 border-b gold-border flex items-center justify-center space-x-4 bg-cardbg/50">
+            <span class="text-xs text-neutral-400">Ngôn ngữ:</span>
+            <button class="px-2 py-1 rounded bg-red-800 text-white text-xs font-semibold flex items-center space-x-1">
+                <span>🇻🇳 VN</span>
+            </button>
+            <button class="px-2 py-1 rounded bg-neutral-800 text-neutral-400 text-xs font-semibold hover:text-white">
+                <span>🇯🇵 JP</span>
+            </button>
+            <button class="px-2 py-1 rounded bg-neutral-800 text-neutral-400 text-xs font-semibold hover:text-white">
+                <span>🇺🇸 EN</span>
+            </button>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex-1 py-4 px-2 space-y-1">
+            <button onclick="switchTab('dashboard'); closeDrawer();"
+                class="w-full flex items-center justify-between px-4 py-3 rounded text-left text-sm font-medium text-neutral-200 hover:bg-cardhover hover:text-gold transition-colors group">
+                <span class="flex items-center space-x-3"><i
+                        class="fa-solid fa-house text-gold/70 group-hover:text-gold w-5"></i><span>Trang chủ Bảng
+                        tin</span></span>
+                <i class="fa-solid fa-arrow-right text-xs text-neutral-500 group-hover:text-gold"></i>
+            </button>
+            <button onclick="switchTab('recipes'); closeDrawer();"
+                class="w-full flex items-center justify-between px-4 py-3 rounded text-left text-sm font-medium text-neutral-200 hover:bg-cardhover hover:text-gold transition-colors group">
+                <span class="flex items-center space-x-3"><i
+                        class="fa-solid fa-book-open text-gold/70 group-hover:text-gold w-5"></i><span>Thư viện Công
+                        thức Món</span></span>
+                <i class="fa-solid fa-arrow-right text-xs text-neutral-500 group-hover:text-gold"></i>
+            </button>
+            <!-- SỔ TAY NHÂN VIÊN: MENU CHA VÀ CÁC MỤC CON -->
+            <div class="rounded-lg overflow-hidden">
+                <button type="button" onclick="toggleProcedureMenu('handbookNavSubmenu', this)" aria-expanded="false"
+                    aria-controls="handbookNavSubmenu"
+                    class="w-full flex items-center justify-between px-4 py-3 rounded text-left text-sm font-medium text-neutral-200 hover:bg-cardhover hover:text-gold transition-colors group">
+                    <span class="flex items-center space-x-3">
+                        <i class="fa-solid fa-graduation-cap text-gold/70 group-hover:text-gold w-5"
+                            aria-hidden="true"></i>
+                        <span>Sổ Tay Nhân Viên</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down text-xs text-neutral-500 group-hover:text-gold transition-transform procedure-chevron"
+                        aria-hidden="true"></i>
+                </button>
+                <div id="handbookNavSubmenu" class="hidden ml-6 pl-3 mr-1 mb-2 border-l border-gold/30 space-y-1">
+                    <button type="button" onclick="switchTab('newbie'); closeDrawer();"
+                        class="w-full flex items-center gap-3 px-3 py-2.5 rounded text-left text-xs sm:text-sm text-neutral-300 hover:bg-cardhover hover:text-gold transition-colors">
+                        <i class="fa-solid fa-book-open-reader text-gold/70 w-4" aria-hidden="true"></i>
+                        <span>Hướng dẫn nhân viên</span>
+                    </button>
+                    <button type="button" onclick="switchTab('opening'); closeDrawer();"
+                        class="w-full flex items-center gap-3 px-3 py-2.5 rounded text-left text-xs sm:text-sm text-neutral-300 hover:bg-cardhover hover:text-gold transition-colors">
+                        <i class="fa-solid fa-sun text-amber-400 w-4" aria-hidden="true"></i>
+                        <span>Quy trình mở ca</span>
+                    </button>
+                    <button type="button" onclick="switchTab('closing'); closeDrawer();"
+                        class="w-full flex items-center gap-3 px-3 py-2.5 rounded text-left text-xs sm:text-sm text-neutral-300 hover:bg-cardhover hover:text-gold transition-colors">
+                        <i class="fa-solid fa-moon text-blue-400 w-4" aria-hidden="true"></i>
+                        <span>Quy trình kết ca</span>
+                        <span class="ml-auto text-[10px] text-neutral-500 whitespace-nowrap">Sắp có</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Social Icons & Corporate Footer -->
+        <div class="p-4 border-t gold-border bg-cardbg">
+            <div class="flex justify-center space-x-4 mb-4 text-neutral-400">
+                <a href="#"
+                    class="w-8 h-8 rounded bg-neutral-900 border gold-border flex items-center justify-center hover:text-gold hover:border-gold transition"><i
+                        class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"
+                    class="w-8 h-8 rounded bg-neutral-900 border gold-border flex items-center justify-center hover:text-gold hover:border-gold transition"><i
+                        class="fa-brands fa-youtube"></i></a>
+                <a href="#"
+                    class="w-8 h-8 rounded bg-neutral-900 border gold-border flex items-center justify-center hover:text-gold hover:border-gold transition"><i
+                        class="fa-brands fa-instagram"></i></a>
+            </div>
+            <div class="p-3 bg-[#0d0d0d] rounded border gold-border text-center">
+                <p class="text-[10px] text-neutral-400 font-semibold uppercase">ANRAKUTEI VIETNAM KITCHEN</p>
+                <a href="#" class="text-xs text-gold hover:underline flex items-center justify-center space-x-1 mt-1">
+                    <span>Trang chủ tập đoàn</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6">
+
+        <!-- TAB 1: DASHBOARD & NOTICES -->
+        <section id="tab-dashboard" class="space-y-6">
+            <!-- Hero Banner (Inspired by Anrakutei Wagyu Promo style) -->
+            <div
+                class="relative rounded-xl overflow-hidden border gold-border shadow-2xl bg-gradient-to-r from-neutral-900 via-neutral-950 to-black p-6 md:p-10 flex flex-col md:flex-row items-center justify-between">
+                <div class="relative z-10 max-w-xl space-y-4 text-center md:text-left">
+                    <span
+                        class="inline-block px-3 py-1 rounded bg-gold/20 text-gold text-xs font-semibold tracking-wider border border-gold/40">THÔNG
+                        BÁO BẾP TRƯỞNG • 2026</span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold tracking-tight text-white">
+                        Tiêu Chuẩn Chế Biến <span class="gold-gradient-text">Wagyu A4/A5 Nhật Bản</span>
+                    </h2>
+                    <p class="text-neutral-300 text-sm md:text-base">
+                        Toàn bộ nhân viên bếp tuân thủ nghiêm ngặt nhiệt độ cắt thái và định lượng sốt ướp đặc biệt theo
+                        SOP mới nhất. Tránh lãng phí và đảm bảo chất lượng đồng đều.
+                    </p>
+                    <div class="flex flex-wrap gap-3 justify-center md:justify-start pt-2">
+                        <button onclick="switchTab('recipes')"
+                            class="px-5 py-2.5 rounded bg-gold text-black font-semibold text-sm hover:bg-gold-light transition flex items-center space-x-2 shadow-lg shadow-gold/20">
+                            <i class="fa-solid fa-book-open"></i><span>Xem Thư Viện Công Thức</span>
+                        </button>
+                        <button onclick="switchTab('opening')"
+                            class="px-5 py-2.5 rounded bg-cardbg text-gold border gold-border font-semibold text-sm hover:bg-cardhover transition flex items-center space-x-2">
+                            <i class="fa-solid fa-list-check"></i><span>Xem Quy Trình Mở Ca</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-6 md:mt-0 relative z-10 w-full md:w-auto flex justify-center">
+                    <div
+                        class="w-48 h-48 md:w-60 md:h-60 rounded-full border-4 border-gold/40 p-2 flex items-center justify-center bg-cardbg shadow-2xl relative">
+                        <div
+                            class="absolute -top-3 bg-gold text-black px-3 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest shadow">
+                            Premium</div>
+                        <div class="text-center">
+                            <i class="fa-solid fa-award text-gold text-5xl md:text-6xl mb-2"></i>
+                            <h3 class="font-bold text-white text-sm">ANRAKUTEI QUALITY</h3>
+                            <p class="text-[11px] text-neutral-400">1963 • Authentic Taste</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats & Emergency Notice Board -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Stat Card 1 -->
+                <div class="bg-cardbg rounded-xl p-5 border gold-border flex items-center space-x-4 shadow-lg">
+                    <div
+                        class="w-12 h-12 rounded bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-xl">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-neutral-400">Tổng công thức món</p>
+                        <h4 id="statRecipeCount" class="text-2xl font-bold text-white">1 Công thức</h4>
+                        <span class="text-[10px] text-emerald-400 flex items-center space-x-1 mt-0.5">
+                            <i class="fa-solid fa-check"></i><span>Dữ liệu từ công thức thực tế</span>
+                        </span>
+                    </div>
+                </div>
+                <!-- Stat Card 2 -->
+                <div class="bg-cardbg rounded-xl p-5 border gold-border flex items-center space-x-4 shadow-lg">
+                    <div
+                        class="w-12 h-12 rounded bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-xl">
+                        <i class="fa-solid fa-temperature-three-quarters"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-neutral-400">Nhiệt độ Tủ Đông / Mát</p>
+                        <h4 class="text-2xl font-bold text-emerald-400">-18°C / +4°C</h4>
+                        <span class="text-[10px] text-emerald-400 flex items-center space-x-1 mt-0.5">
+                            <i class="fa-solid fa-shield-halved"></i><span>An toàn thực phẩm tối đa</span>
+                        </span>
+                    </div>
+                </div>
+                <!-- Stat Card 3 -->
+                <div class="bg-cardbg rounded-xl p-5 border gold-border flex items-center space-x-4 shadow-lg">
+                    <div
+                        class="w-12 h-12 rounded bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-xl">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-neutral-400">Thông báo quan trọng</p>
+                        <h4 class="text-2xl font-bold text-gold">01 Gấp</h4>
+                        <span class="text-[10px] text-amber-400 flex items-center space-x-1 mt-0.5">
+                            <i class="fa-solid fa-bell"></i><span>Cần đọc trước khi vào ca</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notice Board Details: nội dung Bếp trưởng -->
+            <div class="bg-cardbg rounded-xl border gold-border p-4 sm:p-6 shadow-xl">
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4 pb-3 border-b gold-border">
+                    <h3 class="text-base sm:text-lg font-bold text-gold flex items-start gap-2">
+                        <i class="fa-solid fa-bullhorn mt-1 shrink-0"></i>
+                        <span>Bảng Thông Báo &amp; Cập Nhật Mới Nhất Từ Bếp Trưởng</span>
+                    </h3>
+                    <span class="text-xs text-neutral-400 whitespace-nowrap">Thông báo nội bộ bếp</span>
+                </div>
+                <div class="space-y-4">
+                    <!-- Thông báo khẩn và quan trọng -->
+                    <article class="relative overflow-hidden rounded-lg bg-[#0d0d0d] border border-amber-500/40">
+                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-amber-500" aria-hidden="true"></div>
+                        <div class="p-4 pl-5">
+                            <span
+                                class="inline-flex items-center gap-1 px-2 py-1 rounded bg-amber-500/20 text-amber-400 text-[10px] font-bold uppercase">
+                                <i class="fa-solid fa-triangle-exclamation"></i> QUAN TRỌNG • KHẨN CẤP
+                            </span>
+                            <h4 class="font-bold text-white text-sm sm:text-base mt-2">Chấn chỉnh quy trình đầu ca và
+                                chất lượng món ăn</h4>
+                            <p class="text-xs sm:text-sm text-neutral-300 mt-2 leading-relaxed">
+                                Chuẩn bị đầu ca đúng giờ, chủ động thực hiện công việc tại quầy được phân công và kiểm
+                                tra chất lượng nguyên liệu, món ăn trước khi phục vụ.
+                            </p>
+                            <div id="notice-important"
+                                class="hidden mt-4 pt-4 border-t border-amber-500/20 text-xs sm:text-sm text-neutral-300 leading-relaxed space-y-3">
+                                <div>
+                                    <h5 class="font-semibold text-amber-400 mb-1">1. Chuẩn bị đầu ca</h5>
+                                    <p>Đến 10:00, các khu vực phải được sắp xếp và chuẩn bị đầy đủ: kiểm tra hệ thống
+                                        điện, nấu cơm, soup, rửa và sơ chế rau củ. Chủ động hoàn thành công việc, bảo
+                                        đảm sẵn sàng phục vụ và bàn giao cho ca sau.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-amber-400 mb-1">2. Trách nhiệm từng quầy</h5>
+                                    <p>Ai phụ trách quầy nào phải kiểm soát quầy đó: số lượng, chất lượng, màu sắc, mùi
+                                        vị và hạn sử dụng. Làm việc tập trung, đúng tiến độ; không để tình trạng chậm
+                                        trễ hoặc chờ nhắc nhở mới thực hiện.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-amber-400 mb-1">3. Thịt tươi và nội tạng bò</h5>
+                                    <p>Kiểm tra màu sắc, mùi, chất lượng, hạn sử dụng và tình trạng đông lạnh của thịt;
+                                        không sử dụng nguyên liệu bất thường. Nội tạng bò chỉ rã đông lượng đủ dùng,
+                                        tránh dư thừa gây mùi và giảm chất lượng.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-amber-400 mb-1">4. Rau củ và hải sản</h5>
+                                    <p>Rau củ phải tươi, rửa sạch, cắt đúng kích thước và định lượng. Hải sản phải được
+                                        giữ lạnh đúng quy trình, kiểm tra màu sắc và mùi. Phát hiện bất thường phải
+                                        ngừng sử dụng và báo ngay người phụ trách.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-amber-400 mb-1">5. Sốt, cơm và soup</h5>
+                                    <p>Sốt phải đúng công thức, màu sắc, hương thơm và mùi vị. Cơm phải đúng tỷ lệ
+                                        gạo/nước, thao tác vo, để ráo và thời gian nấu. Soup phải nấu đúng công thức,
+                                        nêm nếm trước khi ra món; thành phẩm trình bày sát tiêu chuẩn thực đơn.</p>
+                                </div>
+                                <p class="pt-3 border-t border-amber-500/20 text-amber-300 font-medium">Toàn bộ nhân
+                                    viên cần nghiêm túc thực hiện. Những trường hợp tái diễn việc thiếu trách nhiệm sẽ
+                                    được nhắc nhở và xử lý theo quy định.</p>
+                            </div>
+                            <button type="button" onclick="toggleKitchenNotice('notice-important', this)"
+                                aria-controls="notice-important" aria-expanded="false"
+                                class="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-amber-400 hover:text-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-400 transition-colors">
+                                <span class="notice-toggle-label">Xem chi tiết</span><i
+                                    class="fa-solid fa-chevron-down notice-toggle-icon transition-transform"
+                                    aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </article>
+                    <!-- Thông báo vệ sinh và kết ca -->
+                    <article class="rounded-lg bg-[#0d0d0d] border gold-border overflow-hidden">
+                        <div class="p-4">
+                            <span
+                                class="inline-flex items-center gap-1 px-2 py-1 rounded bg-gold/20 text-gold text-[10px] font-bold uppercase">
+                                <i class="fa-solid fa-broom"></i> LƯU Ý VỆ SINH &amp; KẾT CA
+                            </span>
+                            <h4 class="font-bold text-white text-sm sm:text-base mt-2">Bảo quản thực phẩm, vệ sinh và
+                                bàn giao cuối ca</h4>
+                            <p class="text-xs sm:text-sm text-neutral-300 mt-2 leading-relaxed">Trước khi ra về, bảo
+                                quản nguyên liệu đúng vị trí, vệ sinh khu vực phụ trách và kiểm tra, bàn giao đầy đủ cho
+                                ca tiếp theo.</p>
+                            <div id="notice-cleaning"
+                                class="hidden mt-4 pt-4 border-t gold-border text-xs sm:text-sm text-neutral-300 leading-relaxed space-y-3">
+                                <div>
+                                    <h5 class="font-semibold text-gold mb-1">1. Bảo quản hải sản</h5>
+                                    <p>Hải sản còn lại cần được xử lý, làm sạch, bổ sung đá và đưa vào khu vực bảo quản
+                                        phù hợp theo quy trình bếp; không để ngoài nhiệt độ kiểm soát.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gold mb-1">2. Bảo quản thịt</h5>
+                                    <p>Thịt dư phải đưa ngay về đúng tủ và mức nhiệt quy định cho từng loại nguyên liệu,
+                                        tránh giảm chất lượng hoặc thất thoát dịch thịt.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gold mb-1">3. Sắp xếp hàng hóa</h5>
+                                    <p>Đặt nguyên liệu đúng tủ, đúng khu vực, có nhãn nhận diện; không để hàng phân tán
+                                        nhiều tủ hoặc sắp xếp lộn xộn.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gold mb-1">4. Kiểm tra và bàn giao</h5>
+                                    <p>Vệ sinh tủ lạnh, kiểm tra hạn sử dụng, chuẩn bị nguyên liệu cho ca sau theo quy
+                                        trình. Hàng thiếu hoặc sắp hết phải báo Bếp trưởng hoặc Kiệt để kịp đặt hàng.
+                                    </p>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gold mb-1">5. Khu vực rửa chén</h5>
+                                    <p>Rửa sạch, phân loại và xếp chén đĩa, dụng cụ ngay ngắn. Vệ sinh bồn rửa, máy rửa
+                                        chén và khu vực xung quanh.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gold mb-1">6. Kiểm tra trước khi ra về</h5>
+                                    <p>Thu gom rác, vệ sinh khu vực phụ trách, kiểm tra nước và tắt các thiết bị điện
+                                        không cần hoạt động. Bàn giao khu vực sạch sẽ, gọn gàng.</p>
+                                </div>
+                                <p class="pt-3 border-t gold-border text-gold font-medium">Mỗi nhân viên có trách nhiệm
+                                    hoàn thành phần việc của mình trước khi kết ca.</p>
+                            </div>
+                            <button type="button" onclick="toggleKitchenNotice('notice-cleaning', this)"
+                                aria-controls="notice-cleaning" aria-expanded="false"
+                                class="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-gold hover:text-gold-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold transition-colors">
+                                <span class="notice-toggle-label">Xem chi tiết</span><i
+                                    class="fa-solid fa-chevron-down notice-toggle-icon transition-transform"
+                                    aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </article>
+                </div>
+                <p class="mt-4 pt-3 border-t gold-border text-xs text-neutral-400 leading-relaxed">
+                    <i class="fa-solid fa-circle-info text-gold mr-1" aria-hidden="true"></i>
+                    Các vấn đề trên liên quan đến công việc chung của toàn bếp. Nếu có khó khăn hoặc đề xuất cải thiện,
+                    vui lòng trao đổi với Bếp trưởng để cùng khắc phục.
+                </p>
+            </div>
+        </section>
+
+        <!-- TAB 2: RECIPES LIBRARY -->
+        <section id="tab-recipes" class="space-y-6 hidden">
+            <!-- Header & Search Toolbar -->
+            <div
+                class="flex flex-col md:flex-row items-center justify-between gap-4 bg-cardbg p-6 rounded-xl border gold-border shadow-xl">
+                <div>
+                    <h2 class="text-xl font-bold text-gold flex items-center space-x-2">
+                        <i class="fa-solid fa-book-bookmark"></i><span>Thư Viện Công Thức Món Ăn Anrakutei</span>
+                    </h2>
+                    <p class="text-xs text-neutral-400 mt-1">Tra cứu nhanh định lượng chuẩn, nguyên liệu và hướng dẫn
+                        chế biến chi tiết cho nhân viên bếp.</p>
+                </div>
+                <div class="w-full md:w-auto">
+                    <div class="relative w-full md:w-72">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-neutral-400"><i
+                                class="fa-solid fa-search"></i></span>
+                        <input type="text" id="recipeSearchInput" oninput="filterRecipes()"
+                            placeholder="Tìm tên sốt, nguyên liệu..."
+                            class="w-full bg-[#0d0d0d] border gold-border rounded-lg pl-10 pr-4 py-2 text-sm text-white placeholder-neutral-500 focus:outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Filter Pills -->
+            <div class="flex flex-wrap gap-2">
+                <button onclick="filterCategory('all')" id="cat-all"
+                    class="category-btn px-4 py-2 rounded-lg bg-gold text-black text-xs font-bold transition">Tất
+                    Cả</button>
+                <button onclick="filterCategory('Wagyu & Bò')" id="cat-wagyu"
+                    class="category-btn px-4 py-2 rounded-lg bg-cardbg text-neutral-300 border gold-border text-xs font-semibold hover:text-gold transition">Wagyu
+                    & Bò Nướng</button>
+                <button onclick="filterCategory('Sốt & Nước Chấm')" id="cat-sot"
+                    class="category-btn px-4 py-2 rounded-lg bg-cardbg text-neutral-300 border gold-border text-xs font-semibold hover:text-gold transition">Sốt
+                    & Nước Chấm</button>
+                <button onclick="filterCategory('Món Phụ & Khai Vị')" id="cat-khai-vi"
+                    class="category-btn px-4 py-2 rounded-lg bg-cardbg text-neutral-300 border gold-border text-xs font-semibold hover:text-gold transition">Món
+                    Phụ & Khai Vị</button>
+                <button onclick="filterCategory('Canh & Súp')" id="cat-sup"
+                    class="category-btn px-4 py-2 rounded-lg bg-cardbg text-neutral-300 border gold-border text-xs font-semibold hover:text-gold transition">Canh
+                    & Súp</button>
+            </div>
+
+            <!-- Recipes Grid -->
+            <div id="recipesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Rendered dynamically by JS -->
+            </div>
+        </section>
+
+        <!-- TAB: SỔ TAY NHÂN VIÊN -->
+        <section id="tab-newbie" class="space-y-6 hidden">
+            <div class="bg-cardbg p-6 rounded-xl border gold-border shadow-xl">
+                <h2 class="text-xl font-bold text-gold flex items-center space-x-2">
+                    <i class="fa-solid fa-graduation-cap"></i><span>Sổ Tay Nhân Viên</span>
+                </h2>
+                <p class="text-xs text-neutral-400 mt-1">Tổng hợp hướng dẫn làm việc và các kiến thức cần thiết dành cho
+                    nhân viên bếp.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Guide 1 -->
+                <div class="bg-cardbg p-5 rounded-xl border gold-border space-y-3">
+                    <div
+                        class="w-10 h-10 rounded bg-gold/10 border border-gold/30 flex items-center justify-center text-gold font-bold">
+                        01</div>
+                    <h3 class="font-bold text-white text-base">Quy tắc Cắt Thái & Định Lượng Thịt Bò</h3>
+                    <p class="text-xs text-neutral-300">Thịt bò Wagyu và Sườn bò phải được cắt theo đúng chiều thớ cơ để
+                        đảm bảo độ mềm khi nướng. Kích thước lát cắt chuẩn: Dày 3-4mm đối với thịt nướng nhanh, 8-10mm
+                        đối với sườn bò cắt khối. Luôn dùng cân điện tử để định lượng chính xác từng phần ăn.</p>
+                </div>
+                <!-- Guide 2 -->
+                <div class="bg-cardbg p-5 rounded-xl border gold-border space-y-3">
+                    <div
+                        class="w-10 h-10 rounded bg-gold/10 border border-gold/30 flex items-center justify-center text-gold font-bold">
+                        02</div>
+                    <h3 class="font-bold text-white text-base">Vệ Sinh An Toàn Thực Phẩm (HACCP)</h3>
+                    <p class="text-xs text-neutral-300">Tuyệt đối không để thịt sống chạm vào rau củ ăn kèm hoặc thức ăn
+                        đã chín. Sử dụng thớt màu đỏ cho thịt sống, thớt màu xanh cho rau củ. Rửa tay sát khuẩn mỗi khi
+                        chuyển công đoạn chế biến.</p>
+                </div>
+                <!-- Guide 3 -->
+                <div class="bg-cardbg p-5 rounded-xl border gold-border space-y-3">
+                    <div
+                        class="w-10 h-10 rounded bg-gold/10 border border-gold/30 flex items-center justify-center text-gold font-bold">
+                        03</div>
+                    <h3 class="font-bold text-white text-base">Giao Tiếp & Phối Hợp Line Bếp</h3>
+                    <p class="text-xs text-neutral-300">Khi nhận order từ màn hình KDS hoặc phiếu, phải hô to xác nhận
+                        (Ví dụ: "Đã nhận 1 phần Wagyu A5!" hoặc "Sẵn sàng sốt Tare đặc biệt!"). Giữ tinh thần hỗ trợ
+                        đồng đội khi giờ cao điểm đông khách.</p>
+                </div>
+                <!-- Guide 4 -->
+                <div class="bg-cardbg p-5 rounded-xl border gold-border space-y-3">
+                    <div
+                        class="w-10 h-10 rounded bg-gold/10 border border-gold/30 flex items-center justify-center text-gold font-bold">
+                        04</div>
+                    <h3 class="font-bold text-white text-base">Xử Lý Tình Huống Gấp</h3>
+                    <p class="text-xs text-neutral-300">Nếu phát hiện nguyên liệu có mùi hoặc bất thường về màu sắc, lập
+                        tức ngưng sử dụng và báo cáo ngay cho Bếp trưởng hoặc Quản lý ca. Không tự ý xử lý hoặc bỏ qua
+                        lỗi.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB: QUY TRÌNH MỞ CA -->
+        <section id="tab-opening" class="space-y-5 sm:space-y-6 hidden">
+            <div class="bg-cardbg rounded-xl border gold-border p-4 sm:p-6 shadow-xl">
+                <button type="button" onclick="switchTab('newbie')"
+                    class="inline-flex items-center gap-2 text-xs text-neutral-400 hover:text-gold transition-colors mb-4">
+                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Quay lại Sổ tay nhân viên
+                </button>
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <div>
+                        <span
+                            class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 text-amber-400 px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider"><i
+                                class="fa-solid fa-sun" aria-hidden="true"></i> QUY TRÌNH BẾP</span>
+                        <h2 class="text-xl sm:text-2xl font-bold text-gold mt-3">Quy trình mở ca</h2>
+                        <p class="text-xs sm:text-sm text-neutral-400 mt-2 leading-relaxed">Tóm tắt công việc mở ca do
+                            Bếp trưởng cung cấp, được chia nhóm để tiện theo dõi.</p>
+                    </div>
+                    <div
+                        class="shrink-0 inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[#0d0d0d] border gold-border text-gold text-xs font-semibold">
+                        <i class="fa-solid fa-list-ol" aria-hidden="true"></i> 20 công việc
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                <article class="rounded-xl bg-cardbg border gold-border p-4 sm:p-5 shadow-lg">
+                    <div class="flex items-center gap-3 mb-3 pb-3 border-b gold-border">
+                        <span
+                            class="w-10 h-10 shrink-0 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold"><i
+                                class="fa-solid fa-power-off" aria-hidden="true"></i></span>
+                        <div class="min-w-0"><span class="text-[10px] uppercase tracking-wider text-neutral-400">Nhóm
+                                01</span>
+                            <h3 class="font-semibold text-sm sm:text-base text-white">Khởi động thiết bị &amp; chuẩn bị
+                            </h3>
+                        </div>
+                    </div>
+                    <ol class="space-y-0">
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">01</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Mở gas</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">02</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Mở máy rửa chén</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">03</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Mở đèn</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">04</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Mở hút (hệ thống hút
+                                mùi)</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">05</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Mở lò dầu</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">06</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Pha Steriup</span>
+                        </li>
+                    </ol>
+                </article>
+                <article class="rounded-xl bg-cardbg border gold-border p-4 sm:p-5 shadow-lg">
+                    <div class="flex items-center gap-3 mb-3 pb-3 border-b gold-border">
+                        <span
+                            class="w-10 h-10 shrink-0 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold"><i
+                                class="fa-solid fa-fire-burner" aria-hidden="true"></i></span>
+                        <div class="min-w-0"><span class="text-[10px] uppercase tracking-wider text-neutral-400">Nhóm
+                                02</span>
+                            <h3 class="font-semibold text-sm sm:text-base text-white">Nấu các món đầu ca</h3>
+                        </div>
+                    </div>
+                    <ol class="space-y-0">
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">07</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Nấu cơm</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">08</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Nấu soup</span>
+                        </li>
+                    </ol>
+                </article>
+                <article class="rounded-xl bg-cardbg border gold-border p-4 sm:p-5 shadow-lg">
+                    <div class="flex items-center gap-3 mb-3 pb-3 border-b gold-border">
+                        <span
+                            class="w-10 h-10 shrink-0 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold"><i
+                                class="fa-solid fa-clipboard-check" aria-hidden="true"></i></span>
+                        <div class="min-w-0"><span class="text-[10px] uppercase tracking-wider text-neutral-400">Nhóm
+                                03</span>
+                            <h3 class="font-semibold text-sm sm:text-base text-white">Kiểm tra món và nguyên liệu</h3>
+                        </div>
+                    </div>
+                    <ol class="space-y-0">
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">09</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Kiểm tra Namaru</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">10</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Kiểm tra Kobachi</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">11</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Kiểm tra kimchi</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">12</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Kiểm tra rau salad</span>
+                        </li>
+                    </ol>
+                </article>
+                <article class="rounded-xl bg-cardbg border gold-border p-4 sm:p-5 shadow-lg">
+                    <div class="flex items-center gap-3 mb-3 pb-3 border-b gold-border">
+                        <span
+                            class="w-10 h-10 shrink-0 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center text-gold"><i
+                                class="fa-solid fa-bowl-food" aria-hidden="true"></i></span>
+                        <div class="min-w-0"><span class="text-[10px] uppercase tracking-wider text-neutral-400">Nhóm
+                                04</span>
+                            <h3 class="font-semibold text-sm sm:text-base text-white">Sơ chế, bảo quản &amp; chuẩn bị
+                                phục vụ</h3>
+                        </div>
+                    </div>
+                    <ol class="space-y-0">
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">13</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Sắp xếp hàng vào tủ bảo
+                                quản</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">14</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Xả rau</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">15</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Làm Namaru</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">16</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Lên cơm</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">17</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Nấu soup rong biển</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">18</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Chuẩn bị rau cuộn</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">19</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Chuẩn bị mâm Kobachi 8
+                                loại</span>
+                        </li>
+                        <li class="flex items-start gap-3 py-2.5 border-b border-white/5 last:border-b-0">
+                            <span
+                                class="w-7 h-7 shrink-0 rounded-md bg-gold/10 border border-gold/20 text-gold text-xs font-bold flex items-center justify-center">20</span>
+                            <span class="text-sm text-neutral-200 leading-relaxed pt-0.5">Chuẩn bị rau lẩu</span>
+                        </li>
+                    </ol>
+                </article>
+            </div>
+            <div
+                class="p-4 rounded-lg border border-amber-500/25 bg-amber-500/5 text-xs sm:text-sm text-neutral-300 leading-relaxed">
+                <i class="fa-solid fa-circle-info text-amber-400 mr-2" aria-hidden="true"></i>
+                Đây là bản tóm tắt thao tác. Việc vận hành gas, thiết bị nóng và pha dung dịch phải theo hướng dẫn an
+                toàn, quy định và đào tạo thực tế của bếp.
+            </div>
+        </section>
+
+        <!-- TAB: QUY TRÌNH KẾT CA (CHỜ NỘI DUNG) -->
+        <section id="tab-closing" class="space-y-5 sm:space-y-6 hidden">
+            <div class="bg-cardbg rounded-xl border gold-border p-4 sm:p-6 shadow-xl">
+                <button type="button" onclick="switchTab('newbie')"
+                    class="inline-flex items-center gap-2 text-xs text-neutral-400 hover:text-gold transition-colors mb-4">
+                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Quay lại Sổ tay nhân viên
+                </button>
+                <span
+                    class="inline-flex items-center gap-2 bg-gold/10 border gold-border text-gold px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider"><i
+                        class="fa-solid fa-moon" aria-hidden="true"></i> QUY TRÌNH BẾP</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-gold mt-3">Quy trình kết ca</h2>
+                <p class="text-xs sm:text-sm text-neutral-400 mt-2">Mục này đã được tạo sẵn để bổ sung quy trình chính
+                    thức sau khi Bếp trưởng cung cấp.</p>
+            </div>
+            <div class="rounded-xl border gold-border bg-cardbg p-6 sm:p-10 text-center shadow-lg">
+                <div
+                    class="w-14 h-14 rounded-full mx-auto flex items-center justify-center bg-gold/10 text-gold text-xl mb-4">
+                    <i class="fa-regular fa-file-lines" aria-hidden="true"></i></div>
+                <h3 class="font-semibold text-white">Nội dung đang được cập nhật</h3>
+                <p class="text-xs sm:text-sm text-neutral-400 mt-2 max-w-md mx-auto leading-relaxed">Chưa có danh sách
+                    công việc kết ca được xác nhận. Phần hướng dẫn sẽ được bổ sung tại đây.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto border-t gold-border bg-[#0d0d0d] py-6 px-4 text-center text-xs text-neutral-400">
+        <p class="font-semibold text-gold">ANRAKUTEI KITCHEN PORTAL • SINCE 1963</p>
+        <p class="mt-1">Hệ thống quản lý công thức & quy trình bếp chuẩn Nhật Bản.</p>
+    </footer>
+
+    <!-- RECIPE DETAIL MODAL -->
+    <div id="recipeModal"
+        class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center p-4 backdrop-blur-sm">
+        <div
+            class="bg-cardbg border gold-border rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 relative shadow-2xl space-y-4">
+            <button type="button" aria-label="Đóng chi tiết công thức" onclick="closeRecipeModal()"
+                class="absolute top-4 right-4 w-8 h-8 rounded bg-[#0d0d0d] border gold-border text-neutral-400 hover:text-gold flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="modalContent">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Expand / collapse kitchen notices without changing the page layout.
+        function toggleKitchenNotice(contentId, button) {
+            const content = document.getElementById(contentId);
+            if (!content || !button) return;
+            const opening = content.classList.contains('hidden');
+            content.classList.toggle('hidden', !opening);
+            button.setAttribute('aria-expanded', String(opening));
+            const label = button.querySelector('.notice-toggle-label');
+            const icon = button.querySelector('.notice-toggle-icon');
+            if (label) label.textContent = opening ? 'Thu gọn' : 'Xem chi tiết';
+            if (icon) icon.classList.toggle('rotate-180', opening);
+        }
+
+        /* =====================================================================
+           KHO CÔNG THỨC BẾP ANRAKUTEI — CHỈ CHỈNH SỬA TRONG PHẦN NÀY
+           =====================================================================
+           Website tĩnh: công thức được đọc từ mảng `recipes` bên dưới.
+           Không dùng localStorage hoặc biểu mẫu thêm món trong trình duyệt.
+
+           HƯỚNG DẪN THÊM MÓN MỚI:
+           1. Tìm dòng "KHO CÔNG THỨC BẾP ANRAKUTEI" trong file HTML.
+           2. Sao chép khối { ... } của TATEGI hoặc mẫu ở dưới.
+           3. Dán sau món cuối, đặt id KHÁC nhau và thay nội dung.
+           4. Giữ dấu phẩy giữa các món. Lưu file và đăng bản mới lên web.
+           5. Với HSD chưa xác nhận: để shelfLife: "" (không tự đoán).
+           ===================================================================== */
+        const recipes = [
+            // ────────────────────────────────────────────────────────────────
+            // CÔNG THỨC 01 — TATEGI
+            // ────────────────────────────────────────────────────────────────
+            {
+                id: 1,                           // ID duy nhất, không trùng với món khác
+                title: "TATEGI",                  // Tên hiển thị
+                category: "Sốt & Nước Chấm",     // Phải khớp tên danh mục phía trên
+                ingredients: [
+                    "Gừng mài: 15g",
+                    "Dầu ăn: 250g",
+                    "Dashi bò: 48g",
+                    "Tỏi xay: 15g",
+                    "Ớt tinh/Ớt thô: 50g",
+                    "Nước: 80g"
+                ],
+                steps: [
+                    "Phi thơm gừng mài và tỏi xay cùng dầu ăn.",
+                    "Cho ớt tinh/ớt thô, dashi bò và nước vào.",
+                    "Đun sôi hỗn hợp, sau đó để nguội.",
+                    "Cho sốt vào hộp và bảo quản lạnh bên trong tủ quầy nóng."
+                ],
+                storage: "Bảo quản lạnh bên trong tủ quầy nóng.",
+                shelfLife: "",                   // HSD chưa được bếp trưởng xác nhận
+                notes: "Xác nhận hạn sử dụng (HSD) với Bếp trưởng trước khi ghi nhãn."
+            }
+
+
+            ,
+            {
+                // ───────────────────────────────────────────
+                // CÔNG THỨC 02 — NƯỚC SOUP WAKAME
+                // ───────────────────────────────────────────
+
+                id: 2,
+
+                title: "Nước Soup Wakame ( Nồi Súp Rong Biển)",
+
+                category: "Canh & Súp",
+
+                ingredients: [
+                    "Nước dùng: 5.2 lít",
+                    "Muối: 31g",
+                    "Ajimoto: 10g",
+                    "Nước tương: 21cc",
+                    "Dầu mè: 18cc",
+                    "Tỏi: 30g"
+                ],
+
+                steps: [
+                    "Phi tỏi lên cho vàng rồi cho nước vào.",
+                    "Cho nước dùng và các nguyên liệu còn lại vào, khuấy đều.",
+                    "Nếm thử lại vị trước khi sử dụng."
+                ],
+
+                storage: "",
+
+                shelfLife: "",
+
+                notes: "Ngày phát hành và áp dụng: 20/10/2026. Thành phẩm ghi trên biểu mẫu: 15 lít. HSD và điều kiện bảo quản chưa được cung cấp."
+            }
+
+
+            /* ────────────────────────────────────────────────────────────────
+               MẪU THÊM CÔNG THỨC: sao chép khối bên dưới, bỏ /* và * / bao quanh
+               (hoặc sao chép khối TATEGI bên trên rồi sửa nội dung).
+
+            ,{
+                id: 2,
+                title: "TÊN MÓN MỚI",
+                category: "Sốt & Nước Chấm",
+                ingredients: [
+                    "Nguyên liệu A: 100g",
+                    "Nguyên liệu B: 50g"
+                ],
+                steps: [
+                    "Bước 1: ...",
+                    "Bước 2: ..."
+                ],
+                storage: "Cách bảo quản theo hướng dẫn bếp trưởng.",
+                shelfLife: "",                 // Điền sau khi được xác nhận
+                notes: ""
+            }
+               ──────────────────────────────────────────────────────────────── */
+        ];
+
+        let currentCategory = 'all';
+        let recipeLibraryRendered = false;
+
+        // Khởi tạo giao diện dựa duy nhất vào mã nguồn, không dựa trên trình duyệt người xem.
+        document.addEventListener('DOMContentLoaded', () => {
+            updateStatCounts();
+            // Chỉ kết xuất thẻ công thức khi người dùng mở thư viện.
+        });
+
+        // Tab Navigation (original portal + new handbook procedures)
+        function switchTab(tabId) {
+            const requested = document.getElementById('tab-' + tabId);
+            if (!requested) return;
+            ['dashboard', 'recipes', 'newbie', 'opening', 'closing'].forEach(id => {
+                const tab = document.getElementById('tab-' + id);
+                if (tab) tab.classList.toggle('hidden', id !== tabId);
+            });
+            if (tabId === 'recipes' && !recipeLibraryRendered) {
+                applySearchAndFilter();
+                recipeLibraryRendered = true;
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Expand/collapse the Sổ Tay Nhân Viên submenu in the navigation drawer.
+        function toggleProcedureMenu(menuId, button) {
+            const menu = document.getElementById(menuId);
+            if (!menu || !button) return;
+            const opening = menu.classList.contains('hidden');
+            menu.classList.toggle('hidden', !opening);
+            button.setAttribute('aria-expanded', String(opening));
+            const chevron = button.querySelector('.procedure-chevron');
+            if (chevron) chevron.classList.toggle('rotate-180', opening);
+        }
+
+        // Drawer Menu Controls
+        const menuBtn = document.getElementById('menuBtn');
+        const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+        const navDrawer = document.getElementById('navDrawer');
+        const drawerOverlay = document.getElementById('drawerOverlay');
+
+        menuBtn.onclick = () => {
+            navDrawer.classList.add('open');
+            drawerOverlay.classList.remove('hidden');
+        };
+
+        function closeDrawer() {
+            navDrawer.classList.remove('open');
+            drawerOverlay.classList.add('hidden');
+        }
+
+        closeDrawerBtn.onclick = closeDrawer;
+        drawerOverlay.onclick = closeDrawer;
+
+        // XSS-safe HTML text output: nội dung công thức luôn là văn bản, không phải HTML.
+        function escapeRecipeText(value) {
+            return String(value ?? '').replace(/[&<>"']/g, char => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[char]);
+        }
+
+        function renderRecipes(list) {
+            const grid = document.getElementById('recipesGrid');
+            if (!grid) return;
+
+            if (list.length === 0) {
+                grid.innerHTML = '<div class="col-span-full p-8 rounded-xl border gold-border bg-cardbg text-center text-sm text-neutral-400">Không tìm thấy công thức phù hợp.</div>';
+                return;
+            }
+
+            grid.innerHTML = list.map(recipe => {
+                const title = escapeRecipeText(recipe.title);
+                const category = escapeRecipeText(recipe.category);
+                const count = Array.isArray(recipe.ingredients) ? recipe.ingredients.length : 0;
+                const shelfLife = recipe.shelfLife
+                    ? `HSD: ${escapeRecipeText(recipe.shelfLife)}`
+                    : 'HSD: Chưa cập nhật';
+
+                return `
+                    <article class="bg-cardbg rounded-xl border gold-border p-5 flex flex-col justify-between gap-5 hover:border-gold/70 transition-colors shadow-lg group">
+                        <div>
+                            <div class="flex flex-wrap items-center gap-2 mb-3">
+                                <span class="px-2.5 py-1 rounded bg-gold/10 text-gold text-[10px] font-semibold border border-gold/30">${category}</span>
+                                <span class="px-2.5 py-1 rounded bg-amber-500/10 text-amber-300 text-[10px] font-medium border border-amber-500/20">${shelfLife}</span>
+                            </div>
+                            <h3 class="font-bold text-white text-lg group-hover:text-gold transition-colors">${title}</h3>
+                            <p class="text-xs text-neutral-400 mt-2"><i class="fa-solid fa-list-ul text-gold/70 mr-1" aria-hidden="true"></i>${count} nguyên liệu</p>
+                        </div>
+                        <div class="pt-3 border-t gold-border flex items-center justify-between gap-3">
+                            <span class="text-[11px] text-neutral-400">Chi tiết định lượng & cách làm</span>
+                            <button type="button" data-recipe-id="${recipe.id}" class="view-recipe px-3 py-2 rounded bg-gold/20 text-gold text-xs font-semibold hover:bg-gold hover:text-black transition-colors inline-flex items-center gap-2" aria-label="Xem công thức ${title}">
+                                Chi tiết <i class="fa-solid fa-arrow-right text-[10px]" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </article>`;
+            }).join('');
+        }
+
+        // Một listener duy nhất cho danh sách, không tạo listener lặp ở từng thẻ.
+        document.getElementById('recipesGrid').addEventListener('click', (event) => {
+            const button = event.target.closest('.view-recipe');
+            if (button) openRecipeDetail(Number(button.dataset.recipeId));
+        });
+
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.className = 'category-btn px-4 py-2 rounded-lg bg-cardbg text-neutral-300 border gold-border text-xs font-semibold hover:text-gold transition';
+            });
+
+            const ids = {
+                'all': 'cat-all',
+                'Wagyu & Bò': 'cat-wagyu',
+                'Sốt & Nước Chấm': 'cat-sot',
+                'Món Phụ & Khai Vị': 'cat-khai-vi',
+                'Canh & Súp': 'cat-sup'
+            };
+            const active = document.getElementById(ids[cat]);
+            if (active) active.className = 'category-btn px-4 py-2 rounded-lg bg-gold text-black text-xs font-bold transition';
+            applySearchAndFilter();
+        }
+
+        function filterRecipes() {
+            applySearchAndFilter();
+        }
+
+        function applySearchAndFilter() {
+            const search = document.getElementById('recipeSearchInput');
+            const query = search ? search.value.trim().toLocaleLowerCase('vi') : '';
+            const filtered = recipes.filter(recipe => {
+                if (currentCategory !== 'all' && recipe.category !== currentCategory) return false;
+                if (!query) return true;
+                const searchText = [recipe.title, recipe.category, ...(recipe.ingredients || [])].join(' ').toLocaleLowerCase('vi');
+                return searchText.includes(query);
+            });
+            renderRecipes(filtered);
+        }
+
+        function openRecipeDetail(id) {
+            const recipe = recipes.find(item => item.id === id);
+            if (!recipe) return;
+            const content = document.getElementById('modalContent');
+            const shelfLife = recipe.shelfLife
+                ? escapeRecipeText(recipe.shelfLife)
+                : 'Chưa cập nhật — cần Bếp trưởng xác nhận';
+            const storage = recipe.storage ? escapeRecipeText(recipe.storage) : 'Chưa cập nhật';
+            const ingredients = (recipe.ingredients || []).map(i => `<li>${escapeRecipeText(i)}</li>`).join('');
+            const steps = (recipe.steps || []).map((step, index) => `
+                <li class="flex items-start gap-3">
+                    <span class="shrink-0 w-6 h-6 rounded-full bg-gold/10 text-gold text-xs flex items-center justify-center font-bold">${index + 1}</span>
+                    <span class="pt-0.5">${escapeRecipeText(step)}</span>
+                </li>`).join('');
+
+            content.innerHTML = `
+                <div class="space-y-5 pr-6 sm:pr-8">
+                    <div class="space-y-2">
+                        <span class="inline-block px-2.5 py-1 rounded bg-gold/10 text-gold text-[10px] font-semibold border border-gold/30">${escapeRecipeText(recipe.category)}</span>
+                        <h2 class="text-xl sm:text-2xl font-bold text-gold">${escapeRecipeText(recipe.title)}</h2>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                        <div class="rounded-lg bg-[#0d0d0d] border gold-border px-4 py-3">
+                            <p class="text-neutral-400 mb-1"><i class="fa-solid fa-box-archive mr-1 text-gold" aria-hidden="true"></i>Bảo quản</p>
+                            <p class="text-neutral-100 leading-relaxed font-medium">${storage}</p>
+                        </div>
+                        <div class="rounded-lg bg-amber-500/10 border border-amber-500/30 px-4 py-3">
+                            <p class="text-amber-300 mb-1"><i class="fa-solid fa-calendar-check mr-1" aria-hidden="true"></i>Hạn sử dụng (HSD)</p>
+                            <p class="text-white leading-relaxed font-medium">${shelfLife}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-gold mb-2">Nguyên liệu & định lượng</h3>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 list-disc pl-5 text-sm text-neutral-200">${ingredients}</ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-gold mb-2">Quy trình thực hiện</h3>
+                        <ol class="space-y-3 text-sm text-neutral-200 bg-[#0d0d0d] border gold-border p-4 rounded-lg">${steps}</ol>
+                    </div>
+                    ${recipe.notes ? `<div class="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200 flex items-start gap-2"><i class="fa-solid fa-circle-info mt-0.5" aria-hidden="true"></i><p>${escapeRecipeText(recipe.notes)}</p></div>` : ''}
+                </div>`;
+            document.getElementById('recipeModal').classList.replace('hidden', 'flex');
+        }
+
+        function closeRecipeModal() {
+            document.getElementById('recipeModal').classList.replace('flex', 'hidden');
+        }
+
+        function updateStatCounts() {
+            const count = recipes.length;
+            const stat = document.getElementById('statRecipeCount');
+            if (stat) stat.textContent = `${count} Công thức`;
+        }
+    </script>
+</body>
+
+</html>
