@@ -235,14 +235,13 @@
                 class="relative rounded-xl overflow-hidden border gold-border shadow-2xl bg-gradient-to-r from-neutral-900 via-neutral-950 to-black p-6 md:p-10 flex flex-col md:flex-row items-center justify-between">
                 <div class="relative z-10 max-w-xl space-y-4 text-center md:text-left">
                     <span
-                        class="inline-block px-3 py-1 rounded bg-gold/20 text-gold text-xs font-semibold tracking-wider border border-gold/40">THÔNG
-                        BÁO BẾP TRƯỞNG • 2026</span>
+                        class="inline-block px-3 py-1 rounded bg-gold/20 text-gold text-xs font-semibold tracking-wider border border-gold/40">
+                        CHEF THƠM VÀ LŨ TRẺ</span>
                     <h2 class="text-2xl md:text-4xl font-extrabold tracking-tight text-white">
-                        Tiêu Chuẩn Chế Biến <span class="gold-gradient-text">Wagyu A4/A5 Nhật Bản</span>
+                        Đoàn Tàu Lèo Lái Bởi <span class="gold-gradient-text">Anh Thơm Đẹp Chaii!!</span>
                     </h2>
                     <p class="text-neutral-300 text-sm md:text-base">
-                        Toàn bộ nhân viên bếp tuân thủ nghiêm ngặt nhiệt độ cắt thái và định lượng sốt ướp đặc biệt theo
-                        SOP mới nhất. Tránh lãng phí và đảm bảo chất lượng đồng đều.
+                        <!-- THÔNG BÁO ĐẦU BODY CỦA TRANG WEB DƯỚI TIÊU ĐỀ -->
                     </p>
                     <div class="flex flex-wrap gap-3 justify-center md:justify-start pt-2">
                         <button onclick="switchTab('recipes')"
@@ -255,16 +254,28 @@
                         </button>
                     </div>
                 </div>
+                <!-- CARD TRÒN PREMIUM: ảnh nhân vật đặt tại assets/anhthom.jpg -->
                 <div class="mt-6 md:mt-0 relative z-10 w-full md:w-auto flex justify-center">
-                    <div
-                        class="w-48 h-48 md:w-60 md:h-60 rounded-full border-4 border-gold/40 p-2 flex items-center justify-center bg-cardbg shadow-2xl relative">
-                        <div
-                            class="absolute -top-3 bg-gold text-black px-3 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest shadow">
-                            Premium</div>
-                        <div class="text-center">
-                            <i class="fa-solid fa-award text-gold text-5xl md:text-6xl mb-2"></i>
-                            <h3 class="font-bold text-white text-sm">ANRAKUTEI QUALITY</h3>
-                            <p class="text-[11px] text-neutral-400">1963 • Authentic Taste</p>
+                    <div class="relative w-48 h-48 md:w-60 md:h-60 shrink-0 rounded-full border-4 border-gold/40 bg-[#0d0d0d] shadow-2xl">
+                        <!-- Cắt hình theo khung tròn, vẫn giữ nhãn Premium nằm ngoài viền. -->
+                        <div class="absolute inset-1 rounded-full overflow-hidden bg-[#0d0d0d]">
+                            <img src="./assets/anhthom2.jpg"
+                                 alt="Ảnh đầu bếp Anh Thơm"
+                                 loading="lazy" decoding="async"
+                                 class="absolute inset-0 w-full h-full object-cover object-center select-none"
+                                 style="object-position: center 34%;"
+                                 onerror="this.style.display='none'">
+                            <!-- Dải tối phía dưới giúp chữ dễ đọc trên mọi ảnh. -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/10 to-transparent pointer-events-none"></div>
+                        </div>
+                        <span class="absolute z-20 -top-3 left-1/2 -translate-x-1/2 bg-gold text-black px-3 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest shadow whitespace-nowrap">
+                            Premium
+                        </span>
+                        <div class="absolute z-10 inset-x-2 bottom-4 md:bottom-5 text-center pointer-events-none">
+                            <h3 class="font-bold text-white text-[11px] md:text-sm leading-tight drop-shadow-lg">
+                                <i class="fa-solid fa-award text-gold mr-1" aria-hidden="true"></i>MASTER CHEF THƠM
+                            </h3>
+                            <p class="text-[9px] md:text-[11px] text-neutral-200 drop-shadow-lg mt-1">ĐẸP TRAI NHẤT PXL</p>
                         </div>
                     </div>
                 </div>
@@ -760,7 +771,8 @@
             <div class="rounded-xl border gold-border bg-cardbg p-6 sm:p-10 text-center shadow-lg">
                 <div
                     class="w-14 h-14 rounded-full mx-auto flex items-center justify-center bg-gold/10 text-gold text-xl mb-4">
-                    <i class="fa-regular fa-file-lines" aria-hidden="true"></i></div>
+                    <i class="fa-regular fa-file-lines" aria-hidden="true"></i>
+                </div>
                 <h3 class="font-semibold text-white">Nội dung đang được cập nhật</h3>
                 <p class="text-xs sm:text-sm text-neutral-400 mt-2 max-w-md mx-auto leading-relaxed">Chưa có danh sách
                     công việc kết ca được xác nhận. Phần hướng dẫn sẽ được bổ sung tại đây.</p>
@@ -817,6 +829,10 @@
            3. Dán sau món cuối, đặt id KHÁC nhau và thay nội dung.
            4. Giữ dấu phẩy giữa các món. Lưu file và đăng bản mới lên web.
            5. Với HSD chưa xác nhận: để shelfLife: "" (không tự đoán).
+           6. ĐỂ DÙNG BỘ NHÂN ĐỊNH LƯỢNG: ghi nguyên liệu dạng
+              "Tên nguyên liệu: 15g" hoặc "Nước dùng: 5.2 lít".
+              Có thể dùng số thập phân bằng dấu chấm hoặc dấu phẩy.
+              Nguyên liệu không có con số hợp lệ sẽ giữ nguyên khi nhân mẻ.
            ===================================================================== */
         const recipes = [
             // ────────────────────────────────────────────────────────────────
@@ -886,7 +902,7 @@
                (hoặc sao chép khối TATEGI bên trên rồi sửa nội dung).
 
             ,{
-                id: 2,
+                id: 3,
                 title: "TÊN MÓN MỚI",
                 category: "Sốt & Nước Chấm",
                 ingredients: [
@@ -1042,15 +1058,122 @@
             renderRecipes(filtered);
         }
 
+        /* =====================================================================
+           BỘ TÍNH ĐỊNH LƯỢNG CÔNG THỨC — DÙNG CHUNG CHO MỌI MÓN
+           =====================================================================
+           Các nguyên liệu dạng "Gừng mài: 15g", "Nước dùng: 5.2 lít"
+           sẽ được tự động nhân theo số công thức mà nhân viên chọn.
+           Hệ thống không thay đổi mảng recipes, không lưu dữ liệu và
+           không nhân thời hạn sử dụng, cách làm hoặc ghi chú.
+           ===================================================================== */
+        let activeRecipeForScaling = null;
+        let currentRecipeMultiplier = 1;
+        const quantityFormatter = new Intl.NumberFormat('vi-VN', {
+            maximumFractionDigits: 6
+        });
+
+        function parseIngredientQuantity(rawIngredient) {
+            // Cú pháp: "Tên nguyên liệu: số + đơn vị".
+            // Chỉ đọc con số đứng ngay sau dấu : để tránh nhân nhầm số trong tên món.
+            const text = String(rawIngredient ?? '');
+            const match = text.match(/^\s*(.+?)\s*:\s*(\d+(?:[.,]\d+)?)(\s*.*)?$/u);
+            if (!match) return null;
+            const amount = Number(match[2].replace(',', '.'));
+            const unit = (match[3] || '').trim();
+            // Không tự ý nhân các khoảng như "1-2g" hoặc phân số "1/2g".
+            if (!Number.isFinite(amount) || /^[-–~\/]/u.test(unit)) return null;
+            return { name: match[1].trim(), amount, unit };
+        }
+
+        function formatScaledQuantity(parsed, multiplier) {
+            // Giới hạn làm tròn để không xuất hiện sai số kiểu 0.30000000004.
+            const scaled = Math.round((parsed.amount * multiplier + Number.EPSILON) * 1e6) / 1e6;
+            return `${quantityFormatter.format(scaled)}${parsed.unit ? ' ' + parsed.unit : ''}`;
+        }
+
+        function createIngredientRow(ingredient, index) {
+            const parsed = parseIngredientQuantity(ingredient);
+            if (!parsed) {
+                return `<li class="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 py-2.5 last:border-b-0">
+                    <span class="text-sm text-neutral-200 break-words">${escapeRecipeText(ingredient)}</span>
+                    <span class="text-[10px] text-neutral-500">Chưa có định lượng để nhân</span>
+                </li>`;
+            }
+            return `<li class="flex items-center justify-between gap-3 border-b border-white/5 py-2.5 last:border-b-0">
+                <span class="min-w-0 text-sm text-neutral-200 break-words">${escapeRecipeText(parsed.name)}</span>
+                <strong class="recipe-scaled-quantity text-sm sm:text-base text-gold font-bold text-right whitespace-nowrap tabular-nums"
+                    data-ingredient-index="${index}">${escapeRecipeText(formatScaledQuantity(parsed, 1))}</strong>
+            </li>`;
+        }
+
+        function updateRecipeQuantities(multiplier, syncInput = true) {
+            if (!activeRecipeForScaling) return;
+            currentRecipeMultiplier = multiplier;
+            const modal = document.getElementById('modalContent');
+            (activeRecipeForScaling.ingredients || []).forEach((ingredient, index) => {
+                const target = modal.querySelector(`.recipe-scaled-quantity[data-ingredient-index="${index}"]`);
+                const parsed = parseIngredientQuantity(ingredient);
+                if (target && parsed) target.textContent = formatScaledQuantity(parsed, multiplier);
+            });
+
+            const summary = modal.querySelector('#recipeMultiplierSummary');
+            if (summary) summary.textContent = `${quantityFormatter.format(multiplier)} công thức`;
+            const input = modal.querySelector('#recipeMultiplierInput');
+            if (input) {
+                if (syncInput) input.value = String(multiplier);
+                input.setAttribute('aria-invalid', 'false');
+                input.classList.remove('border-red-400');
+            }
+            const error = modal.querySelector('#recipeMultiplierError');
+            if (error) error.classList.add('hidden');
+
+            modal.querySelectorAll('.recipe-multiplier-preset').forEach(button => {
+                const active = Number(button.dataset.multiplier) === multiplier;
+                button.classList.toggle('bg-gold', active);
+                button.classList.toggle('text-black', active);
+                button.classList.toggle('font-bold', active);
+                button.classList.toggle('bg-neutral-800', !active);
+                button.classList.toggle('text-neutral-300', !active);
+                button.setAttribute('aria-pressed', String(active));
+            });
+        }
+
+        // Một bộ xử lý sự kiện duy nhất, không tạo lại listeners khi mở nhiều món.
+        const recipeDetailContent = document.getElementById('modalContent');
+        recipeDetailContent.addEventListener('click', event => {
+            const preset = event.target.closest('.recipe-multiplier-preset');
+            if (preset) updateRecipeQuantities(Number(preset.dataset.multiplier));
+        });
+        recipeDetailContent.addEventListener('input', event => {
+            if (event.target.id !== 'recipeMultiplierInput') return;
+            const field = event.target;
+            const raw = field.value.trim();
+            // Cho phép dấu phẩy theo cách nhập số thập phân của Việt Nam.
+            const syntaxOK = /^\d+(?:[.,]\d+)?$/.test(raw);
+            const multiplier = Number(raw.replace(',', '.'));
+            const valid = syntaxOK && Number.isFinite(multiplier) && multiplier >= 0.1 && multiplier <= 1000;
+            if (valid) {
+                // Không ghi đè input khi đang gõ để tránh làm nhảy con trỏ.
+                updateRecipeQuantities(multiplier, false);
+            } else {
+                field.setAttribute('aria-invalid', 'true');
+                field.classList.add('border-red-400');
+                const error = recipeDetailContent.querySelector('#recipeMultiplierError');
+                if (error) error.classList.remove('hidden');
+            }
+        });
+
         function openRecipeDetail(id) {
             const recipe = recipes.find(item => item.id === id);
             if (!recipe) return;
+            activeRecipeForScaling = recipe;
+            currentRecipeMultiplier = 1; // Mở món khác luôn về 1 công thức gốc.
             const content = document.getElementById('modalContent');
             const shelfLife = recipe.shelfLife
                 ? escapeRecipeText(recipe.shelfLife)
                 : 'Chưa cập nhật — cần Bếp trưởng xác nhận';
             const storage = recipe.storage ? escapeRecipeText(recipe.storage) : 'Chưa cập nhật';
-            const ingredients = (recipe.ingredients || []).map(i => `<li>${escapeRecipeText(i)}</li>`).join('');
+            const ingredients = (recipe.ingredients || []).map(createIngredientRow).join('');
             const steps = (recipe.steps || []).map((step, index) => `
                 <li class="flex items-start gap-3">
                     <span class="shrink-0 w-6 h-6 rounded-full bg-gold/10 text-gold text-xs flex items-center justify-center font-bold">${index + 1}</span>
@@ -1058,10 +1181,10 @@
                 </li>`).join('');
 
             content.innerHTML = `
-                <div class="space-y-5 pr-6 sm:pr-8">
-                    <div class="space-y-2">
+                <div class="space-y-5">
+                    <div class="space-y-2 pr-8">
                         <span class="inline-block px-2.5 py-1 rounded bg-gold/10 text-gold text-[10px] font-semibold border border-gold/30">${escapeRecipeText(recipe.category)}</span>
-                        <h2 class="text-xl sm:text-2xl font-bold text-gold">${escapeRecipeText(recipe.title)}</h2>
+                        <h2 class="text-xl sm:text-2xl font-bold text-gold break-words">${escapeRecipeText(recipe.title)}</h2>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                         <div class="rounded-lg bg-[#0d0d0d] border gold-border px-4 py-3">
@@ -1073,10 +1196,39 @@
                             <p class="text-white leading-relaxed font-medium">${shelfLife}</p>
                         </div>
                     </div>
-                    <div>
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-gold mb-2">Nguyên liệu & định lượng</h3>
-                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 list-disc pl-5 text-sm text-neutral-200">${ingredients}</ul>
-                    </div>
+
+                    <!-- Tính số mẻ: gọn trong khu vực nguyên liệu, không mở thêm popup. -->
+                    <section class="rounded-xl border gold-border bg-[#101010] overflow-hidden" aria-label="Tính định lượng theo số công thức">
+                        <div class="px-3 sm:px-4 pt-4 pb-3 border-b gold-border bg-gold/5">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                                <h3 class="text-sm font-bold text-gold inline-flex items-center gap-2">
+                                    <i class="fa-solid fa-calculator" aria-hidden="true"></i>Tính định lượng
+                                </h3>
+                                <span id="recipeMultiplierSummary" aria-live="polite" class="text-xs font-semibold text-gold bg-gold/10 border border-gold/20 rounded-full px-2.5 py-1">1 công thức</span>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <div class="flex flex-wrap items-center gap-1.5" role="group" aria-label="Chọn nhanh số công thức">
+                                    ${[1, 2, 3, 5].map(number => `
+                                        <button type="button" data-multiplier="${number}" aria-pressed="${number === 1}"
+                                            class="recipe-multiplier-preset px-3 py-2 rounded-lg text-xs transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold ${number === 1 ? 'bg-gold text-black font-bold' : 'bg-neutral-800 text-neutral-300 hover:text-white'}">${number}×</button>
+                                    `).join('')}
+                                </div>
+                                <div class="flex items-center gap-2 sm:ml-auto">
+                                    <label for="recipeMultiplierInput" class="text-xs text-neutral-300 whitespace-nowrap">Số mẻ</label>
+                                    <input id="recipeMultiplierInput" type="text" inputmode="decimal" value="1" autocomplete="off"
+                                        aria-describedby="recipeMultiplierHelp recipeMultiplierError" aria-invalid="false"
+                                        class="w-20 sm:w-24 bg-[#0d0d0d] border gold-border rounded-lg px-2.5 py-2 text-sm text-white text-center font-semibold focus:outline-none focus:border-gold tabular-nums" />
+                                </div>
+                            </div>
+                            <p id="recipeMultiplierError" role="alert" class="hidden text-[11px] text-red-300 mt-2">Nhập số mẻ từ 0,1 đến 1.000.</p>
+                            <p id="recipeMultiplierHelp" class="text-[11px] text-neutral-400 mt-2 leading-relaxed">Chọn nhanh hoặc nhập số mẻ (ví dụ 2 hoặc 0,5). Chỉ định lượng nguyên liệu được nhân.</p>
+                        </div>
+                        <div class="px-3 sm:px-4 py-3">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-gold mb-1">Nguyên liệu & định lượng tương ứng</h3>
+                            <ul class="divide-y divide-white/5">${ingredients}</ul>
+                        </div>
+                    </section>
+
                     <div>
                         <h3 class="text-xs font-bold uppercase tracking-wider text-gold mb-2">Quy trình thực hiện</h3>
                         <ol class="space-y-3 text-sm text-neutral-200 bg-[#0d0d0d] border gold-border p-4 rounded-lg">${steps}</ol>
@@ -1088,6 +1240,7 @@
 
         function closeRecipeModal() {
             document.getElementById('recipeModal').classList.replace('flex', 'hidden');
+            activeRecipeForScaling = null;
         }
 
         function updateStatCounts() {
